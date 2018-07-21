@@ -1,0 +1,50 @@
+<%= stylesheet_link_tag "chat" %>
+<%= javascript_include_tag "chat" %>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<div style="width: 100%">
+<div class="chat">
+    
+
+<div class="container-fluid">
+    <div class="chat">      
+      <div class="chat-history">
+        <ul>
+          <% @room.chats.each do |chat| %>
+          <% if chat.user_id == current_user.id %>
+            <div class="message-data align-right">
+              <span class="message-data-name" ><%= chat.user.nickname%></span>
+            </div>
+            <div class="message other-message float-right">
+              <%= chat.message %>
+            </div>
+            <% else %>
+
+            <div class="message-data">
+              <span class="message-data-name"><%= chat.user.nickname%></span>
+            </div>
+            <div class="message my-message">
+              <%= chat.message %>
+            </div>
+  
+            <% end %>
+            
+            <% end %>
+
+        
+      </div> <!-- end chat-history -->
+ 
+      
+      <div class="chat-message navbar-fixed-bottom">
+        <form action="/rooms/<%=@room.id%>/chat">
+          <textarea name="message" id="message" placeholder ="Type your message" color="black" rows="2"></textarea>     
+        <button>Send</button>
+        
+      </div> <!-- end chat-message -->
+      
+    </div> <!-- end chat -->
+</div> <!-- end container -->
+</div>
+<%= javascript_include_tag "chat" %>
